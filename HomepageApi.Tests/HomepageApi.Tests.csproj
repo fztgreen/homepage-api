@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <RootNamespace>homepage_api.tests</RootNamespace>
+    <RootNamespace>HomepageApi.tests</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\homepage.api\homepage-api.csproj" />
+    <ProjectReference Include="..\HomepageApi\HomepageApi.csproj" />
   </ItemGroup>
 
   <ItemGroup>

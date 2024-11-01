@@ -1,5 +1,5 @@
 
-namespace homepage_api;
+namespace homepageapi;
 
 public class Program
 {

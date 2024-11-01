@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "homepage-api", "homepage.api\homepage-api.csproj", "{943D1CB4-6411-4E29-A991-E6DF423C825B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomepageApi", "HomepageApi\HomepageApi.csproj", "{943D1CB4-6411-4E29-A991-E6DF423C825B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "homepage-api.tests", "homepage-api.tests\homepage-api.tests.csproj", "{261E6796-0AE0-4A41-858E-F6FD4BA8E5A9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomepageApi.Tests", "HomepageApi.Tests\HomepageApi.Tests.csproj", "{261E6796-0AE0-4A41-858E-F6FD4BA8E5A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,8 +1,8 @@
 ﻿using FluentAssertions;
-using homepage_api.Controllers;
+using homepageapi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
-namespace homepage_api.tests.Behavioral.FeedbackApiTests;
+namespace HomepageApi.tests.Behavioral.FeedbackApiTests;
 
 [TestClass]
 [TestCategory("behavior")]
@@ -13,7 +13,7 @@ public class PostFeedbackShould
     {
         // Arrange
         var sut = new FeedbackApi();
-        var request = new Models.PostFeedbackRequest
+        var request = new homepageapi.Models.PostFeedbackRequest
         {
             Name = "John Doe",
             Message = "Hello",

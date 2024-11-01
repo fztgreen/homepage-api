@@ -1,7 +1,7 @@
-﻿using homepage_api.Models;
+﻿using homepageapi.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace homepage_api.Controllers;
+namespace homepageapi.Controllers;
 
 [ApiController]
 [Route("feedback")]

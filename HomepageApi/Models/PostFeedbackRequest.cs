@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace homepage_api.Models;
+namespace homepageapi.Models;
 
 public class PostFeedbackRequest
 {
