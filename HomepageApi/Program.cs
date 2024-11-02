@@ -9,6 +9,20 @@ public class Program
 
         // Add services to the container.
 
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy(name: "fztgreen.dev",
+                policy =>
+                {
+                    policy.WithOrigins("https://fztgreen.dev");
+                });
+            options.AddPolicy(name: "localhost",
+                policy =>
+                {
+                    policy.WithOrigins("localhost");
+                });
+        });
+
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
@@ -21,12 +35,16 @@ public class Program
         {
             app.UseSwagger();
             app.UseSwaggerUI();
+            app.UseCors("localhost");
+        }
+        else
+        {
+            app.UseCors("fztgreen.dev");
         }
 
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
-
 
         app.MapControllers();
 
