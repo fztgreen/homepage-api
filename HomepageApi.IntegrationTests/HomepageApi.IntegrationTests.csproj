@@ -1,0 +1,18 @@
+<Project Sdk="MSTest.Sdk/4.5.3">
+
+  <ItemGroup>
+    <ProjectReference Include="..\HomepageApi.DataAccess\HomepageApi.DataAccess.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="7.2.2" />
+    <PackageReference Include="RandomTestValues" Version="2.1.1" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <UseVSTest>true</UseVSTest>
+    <!-- Test fields are assigned in [TestInitialize], which the nullable analysis can't see. -->
+    <NoWarn>$(NoWarn);CS8618</NoWarn>
+  </PropertyGroup>
+
+</Project>
