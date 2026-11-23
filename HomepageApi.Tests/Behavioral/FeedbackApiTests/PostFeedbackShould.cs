@@ -22,8 +22,8 @@ namespace HomepageApi.tests.Behavioral.FeedbackApiTests;
 [TestCategory("behavior")]
 public class PostFeedbackShould
 {
-    private FeedbackApi? _sut;
-    private IDapperWrapper? _dapperWrapperMock;
+    private FeedbackApi _sut;
+    private IDapperWrapper _dapperWrapperMock;
 
     [TestInitialize]
     public void TestInitialize()
