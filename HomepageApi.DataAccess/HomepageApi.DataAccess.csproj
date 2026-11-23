@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\src\HomepageApi.Domain\HomepageApi.Domain.csproj" />
+    <ProjectReference Include="..\HomepageApi.Domain\HomepageApi.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

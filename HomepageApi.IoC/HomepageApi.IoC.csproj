@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <ItemGroup>
+    <ProjectReference Include="..\HomepageApi.Api\HomepageApi.Api.csproj" />
+    <ProjectReference Include="..\HomepageApi.Domain\HomepageApi.Domain.csproj" />
+    <ProjectReference Include="..\HomepageApi.DataAccess\HomepageApi.DataAccess.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="11.0.1" />
+  </ItemGroup>
+
+</Project>

@@ -1,8 +1,8 @@
 using System.Text.Json.Serialization;
 
-namespace homepageapi.Models;
+namespace HomepageApi.Api.Models.Feedback;
 
-public class PostFeedbackRequest
+public class FeedbackRequest
 {
     [JsonPropertyName("name")]
     public required string Name { get; set; }

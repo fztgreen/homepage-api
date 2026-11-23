@@ -1,8 +1,10 @@
 <Project Sdk="MSTest.Sdk/4.5.3">
 
   <ItemGroup>
+    <ProjectReference Include="..\HomepageApi.Api\HomepageApi.Api.csproj" />
+    <ProjectReference Include="..\HomepageApi.Domain\HomepageApi.Domain.csproj" />
+    <ProjectReference Include="..\HomepageApi.IoC\HomepageApi.IoC.csproj" />
     <ProjectReference Include="..\HomepageApi.DataAccess\HomepageApi.DataAccess.csproj" />
-    <ProjectReference Include="..\HomepageApi\HomepageApi.csproj" />
   </ItemGroup>
 
   <ItemGroup>

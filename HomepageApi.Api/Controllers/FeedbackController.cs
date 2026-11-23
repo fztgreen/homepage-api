@@ -1,24 +1,23 @@
-using homepageapi.Models;
-
+using HomepageApi.Api.Models.Feedback;
 using HomepageApi.Domain.Commands.Feedback;
 
 using Microsoft.AspNetCore.Mvc;
 
-namespace homepageapi.Controllers;
+namespace HomepageApi.Api.Controllers;
 
 [ApiController]
 [Route("feedback")]
-public class FeedbackApi : ControllerBase
+public class FeedbackController : ControllerBase
 {
     private readonly IStoreFeedback _storeFeedback;
 
-    public FeedbackApi(IStoreFeedback storeFeedback)
+    public FeedbackController(IStoreFeedback storeFeedback)
     {
         _storeFeedback = storeFeedback;
     }
 
-    [HttpPost(Name = "PostFeedback")]
-    public IActionResult PostFeedback([FromBody] PostFeedbackRequest request)
+    [HttpPost]
+    public IActionResult Create([FromBody] FeedbackRequest request)
     {
         _storeFeedback.WithFeedback();
         return Ok();

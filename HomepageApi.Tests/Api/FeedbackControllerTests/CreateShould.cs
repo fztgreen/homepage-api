@@ -2,13 +2,12 @@ using Dapper;
 
 using FluentAssertions;
 
-using homepageapi.Controllers;
-using homepageapi.Models;
-
-using HomepageApi.DataAccess.Repositories;
+using HomepageApi.Api.Controllers;
+using HomepageApi.Api.Models.Feedback;
+using HomepageApi.DataAccess.Feedback;
 using HomepageApi.DataAccess.Wrappers;
 using HomepageApi.Domain.Commands.Feedback;
-using HomepageApi.Domain.DataAccess;
+using HomepageApi.Domain.DataAccess.Feedback;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,29 +15,28 @@ using NSubstitute;
 
 using RandomTestValues;
 
-namespace HomepageApi.tests.Behavioral.FeedbackApiTests;
+namespace HomepageApi.Tests.Api.FeedbackControllerTests;
 
 [TestClass]
-[TestCategory("behavior")]
-public class PostFeedbackShould
+public class CreateShould
 {
-    private FeedbackApi _sut;
-    private IDapperWrapper _dapperWrapperMock;
+    private FeedbackController _sut;
+    private ISqlDatabaseWrapper _sqlDatabase;
 
     [TestInitialize]
     public void TestInitialize()
     {
-        _dapperWrapperMock = Substitute.For<IDapperWrapper>();
-        IFeedbackRepository feedbackRepository = new SqlFeedbackRepository(_dapperWrapperMock);
+        _sqlDatabase = Substitute.For<ISqlDatabaseWrapper>();
+        IFeedbackRepository feedbackRepository = new FeedbackRepository(_sqlDatabase);
         IStoreFeedback storeFeedback = new StoreFeedback(feedbackRepository);
-        _sut = new FeedbackApi(storeFeedback);
+        _sut = new FeedbackController(storeFeedback);
     }
 
     [TestMethod]
     public void ReturnOk()
     {
         // Arrange
-        var request = new PostFeedbackRequest()
+        var request = new FeedbackRequest()
         {
             Name = "John Doe",
             Message = "Hello",
@@ -46,7 +44,7 @@ public class PostFeedbackShould
         };
 
         // Act
-        var result = _sut.PostFeedback(request);
+        var result = _sut.Create(request);
 
         // Assert
         result.Should().BeOfType<OkResult>();
@@ -56,7 +54,7 @@ public class PostFeedbackShould
     public void ReturnOk_AndStoreData()
     {
         // Arrange
-        var request = new PostFeedbackRequest()
+        var request = new FeedbackRequest()
         {
             Name = RandomValue.String(),
             Message = RandomValue.String(),
@@ -64,10 +62,10 @@ public class PostFeedbackShould
         };
 
         // Act
-        var result = _sut.PostFeedback(request);
+        var result = _sut.Create(request);
 
         // Assert
         result.Should().BeOfType<OkResult>();
-        _dapperWrapperMock.Received(1).ExecuteProcedure<bool>(Arg.Is("StoreRequest"), Arg.Any<DynamicParameters>());
+        _sqlDatabase.Received(1).ExecuteProcedure<bool>(Arg.Is("StoreRequest"), Arg.Any<DynamicParameters>());
     }
 }

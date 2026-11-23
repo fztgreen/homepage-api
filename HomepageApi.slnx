@@ -1,6 +1,7 @@
 <Solution>
+  <Project Path="HomepageApi.Api/HomepageApi.Api.csproj" />
   <Project Path="HomepageApi.DataAccess/HomepageApi.DataAccess.csproj" />
+  <Project Path="HomepageApi.Domain/HomepageApi.Domain.csproj" />
+  <Project Path="HomepageApi.IoC/HomepageApi.IoC.csproj" />
   <Project Path="HomepageApi.Tests/HomepageApi.Tests.csproj" />
-  <Project Path="HomepageApi/HomepageApi.csproj" />
-  <Project Path="src/HomepageApi.Domain/HomepageApi.Domain.csproj" />
 </Solution>

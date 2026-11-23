@@ -1,4 +1,4 @@
-using HomepageApi.Domain.DataAccess;
+using HomepageApi.Domain.DataAccess.Feedback;
 
 namespace HomepageApi.Domain.Commands.Feedback;
 
