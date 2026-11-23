@@ -1,6 +1,12 @@
 @homepage_api_HostAddress = http://localhost:5051
 
-GET {{homepage_api_HostAddress}}/weatherforecast/
-Accept: application/json
+POST {{homepage_api_HostAddress}}/feedback
+Content-Type: application/json
+
+{
+  "name": "Ada Lovelace",
+  "message": "Loved the site!",
+  "respondBy": "2026-12-01T00:00:00"
+}
 
 ###
