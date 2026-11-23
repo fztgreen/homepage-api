@@ -1,4 +1,5 @@
 using HomepageApi.Domain.DataAccess.Feedback;
+using HomepageApi.Domain.Entities.Feedback;
 
 namespace HomepageApi.Domain.Commands.Feedback;
 
@@ -11,8 +12,8 @@ public class StoreFeedback : IStoreFeedback
         _feedbackRepository = feedbackRepository;
     }
 
-    public void WithFeedback()
+    public Task WithAsync(FeedbackSubmission submission)
     {
-        _feedbackRepository.Store<bool>();
+        return _feedbackRepository.StoreFeedbackAsync(submission);
     }
 }

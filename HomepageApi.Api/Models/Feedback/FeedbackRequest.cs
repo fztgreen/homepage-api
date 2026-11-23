@@ -1,15 +1,21 @@
-using System.Text.Json.Serialization;
+using System.ComponentModel.DataAnnotations;
+
+using HomepageApi.Domain.Entities.Feedback;
 
 namespace HomepageApi.Api.Models.Feedback;
 
-public class FeedbackRequest
+public record FeedbackRequest
 {
-    [JsonPropertyName("name")]
-    public required string Name { get; set; }
+    [Required]
+    public string Name { get; init; } = string.Empty;
 
-    [JsonPropertyName("message")]
-    public required string Message { get; set; }
+    [Required]
+    public string Message { get; init; } = string.Empty;
 
-    [JsonPropertyName("respondBy")]
-    public DateTime RespondBy { get; set; }
+    public DateTime RespondBy { get; init; }
+
+    public FeedbackSubmission ToFeedbackSubmission()
+    {
+        return new FeedbackSubmission(Name, Message, RespondBy);
+    }
 }

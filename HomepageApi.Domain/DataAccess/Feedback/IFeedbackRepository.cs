@@ -1,6 +1,8 @@
+using HomepageApi.Domain.Entities.Feedback;
+
 namespace HomepageApi.Domain.DataAccess.Feedback;
 
 public interface IFeedbackRepository
 {
-    void Store<T>();
+    Task StoreFeedbackAsync(FeedbackSubmission submission);
 }

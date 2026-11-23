@@ -1,6 +1,7 @@
 using HomepageApi.Api.Models.Feedback;
 using HomepageApi.Domain.Commands.Feedback;
 
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HomepageApi.Api.Controllers;
@@ -17,9 +18,10 @@ public class FeedbackController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Create([FromBody] FeedbackRequest request)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> Create(FeedbackRequest request)
     {
-        _storeFeedback.WithFeedback();
+        await _storeFeedback.WithAsync(request.ToFeedbackSubmission());
         return Ok();
     }
 }

@@ -1,71 +1,57 @@
-using Dapper;
+using System.Net;
+using System.Net.Http.Json;
 
 using FluentAssertions;
 
-using HomepageApi.Api.Controllers;
 using HomepageApi.Api.Models.Feedback;
-using HomepageApi.DataAccess.Feedback;
-using HomepageApi.DataAccess.Wrappers;
-using HomepageApi.Domain.Commands.Feedback;
-using HomepageApi.Domain.DataAccess.Feedback;
-
-using Microsoft.AspNetCore.Mvc;
 
 using NSubstitute;
-
-using RandomTestValues;
 
 namespace HomepageApi.Tests.Api.FeedbackControllerTests;
 
 [TestClass]
-public class CreateShould
+public class CreateShould : FeedbackControllerTestBase
 {
-    private FeedbackController _sut;
-    private ISqlDatabaseWrapper _sqlDatabase;
-
-    [TestInitialize]
-    public void TestInitialize()
+    [TestMethod]
+    public async Task ReturnOk_AndStoreFeedback()
     {
-        _sqlDatabase = Substitute.For<ISqlDatabaseWrapper>();
-        IFeedbackRepository feedbackRepository = new FeedbackRepository(_sqlDatabase);
-        IStoreFeedback storeFeedback = new StoreFeedback(feedbackRepository);
-        _sut = new FeedbackController(storeFeedback);
+        // Arrange
+        var request = RandomFeedbackRequest();
+
+        // Act
+        var response = await Client.PostAsJsonAsync(FeedbackUri, request);
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        await SqlDatabase.Received(1).ExecuteProcedureAsync(StoreFeedbackProcedure, ExpectedParameters(request));
     }
 
     [TestMethod]
-    public void ReturnOk()
+    [DynamicData(nameof(InvalidFeedbackRequests.All), typeof(InvalidFeedbackRequests))]
+    public async Task ReturnBadRequest_WhenRequestIsInvalid(string invalidField, Func<FeedbackRequest, FeedbackRequest> invalidate)
     {
         // Arrange
-        var request = new FeedbackRequest()
-        {
-            Name = "John Doe",
-            Message = "Hello",
-            RespondBy = DateTime.Now.AddDays(3),
-        };
+        var request = invalidate(RandomFeedbackRequest());
 
         // Act
-        var result = _sut.Create(request);
+        var response = await Client.PostAsJsonAsync(FeedbackUri, request);
 
         // Assert
-        result.Should().BeOfType<OkResult>();
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest, invalidField);
+        await SqlDatabase.DidNotReceiveWithAnyArgs().ExecuteProcedureAsync(default!, default!);
     }
 
     [TestMethod]
-    public void ReturnOk_AndStoreData()
+    public async Task ReturnInternalServerError_WhenDatabaseFails()
     {
         // Arrange
-        var request = new FeedbackRequest()
-        {
-            Name = RandomValue.String(),
-            Message = RandomValue.String(),
-            RespondBy = DateTime.Now.AddDays(RandomValue.Int(10, 1))
-        };
+        var request = RandomFeedbackRequest();
+        SqlDatabase.ExecuteProcedureAsync(StoreFeedbackProcedure, ExpectedParameters(request)).Returns(Task.FromException(new InvalidOperationException()));
 
         // Act
-        var result = _sut.Create(request);
+        var response = await Client.PostAsJsonAsync(FeedbackUri, request);
 
         // Assert
-        result.Should().BeOfType<OkResult>();
-        _sqlDatabase.Received(1).ExecuteProcedure<bool>(Arg.Is("StoreRequest"), Arg.Any<DynamicParameters>());
+        response.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
     }
 }
