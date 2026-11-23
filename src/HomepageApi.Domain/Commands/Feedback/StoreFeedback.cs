@@ -1,6 +1,7 @@
-﻿using HomepageApi.Domain.DataAccess;
+using HomepageApi.Domain.DataAccess;
 
 namespace HomepageApi.Domain.Commands.Feedback;
+
 public class StoreFeedback : IStoreFeedback
 {
     private readonly IFeedbackRepository _feedbackRepository;

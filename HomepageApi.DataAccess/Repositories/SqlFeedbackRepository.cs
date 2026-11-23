@@ -1,7 +1,8 @@
-﻿using HomepageApi.DataAccess.Wrappers;
+using HomepageApi.DataAccess.Wrappers;
 using HomepageApi.Domain.DataAccess;
 
 namespace HomepageApi.DataAccess.Repositories;
+
 public class SqlFeedbackRepository : IFeedbackRepository
 {
     private readonly IDapperWrapper _dapperWrapper;
